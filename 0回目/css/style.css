@@ -1,0 +1,633 @@
+@charset "utf-8";
+html{
+  font-size: 62.5%;
+
+}
+
+body{
+  font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+  background-color: #fff;
+  color: #333;
+}
+.wrapper{
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+img{
+  max-width: 100%;
+  height: auto;
+}
+h1{
+  font-size: 3.2rem;
+  font-weight: normal;
+}
+h2{
+  font-size: 2.4rem;
+  font-weight: bold;
+  margin: 0 auto 24px;
+}
+h3{
+  font-size: 1.8rem;
+  font-weight: normal;
+  margin: 24px auto 40px;
+}
+p{
+  font-size: 1.6rem;
+  line-height: 1.75;
+  margin-bottom: 0;
+}
+.textbox{
+  margin:  40px auto 0;
+}
+.yellow{
+  color: #FFD61A;
+}
+.bg-gray{
+  background-color: #FAFAFA;
+}
+.relative{
+  position: relative;
+}
+.left{
+  float: left;
+}
+.right{
+  float: right;
+}
+.clearfix::after{
+	clear: both;
+	content: "";
+	display: block;
+}
+/* ------------------------
+header
+------------------------ */
+.hero{
+  position: relative;
+  box-sizing: border-box;
+}
+.title__wrapper{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+.title{
+  text-align: left;
+  color: #fff;
+}
+.catch{
+  font-size: 4.8rem;
+  line-height: 2.4;
+  font-weight: bold;
+  font-family: "ヒラギノ角ゴ Pro W6", "Hiragino Kaku Gothic Pro", "メイリオ", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+  margin: 0;
+  padding-left: 24px;
+  letter-spacing: 0.02em;
+}
+.btn-trigger{
+  display: none;
+}
+.nav-cover{
+  width: 100%;
+  border-bottom: solid 1px #efefef;
+}
+.nav__wrapper{
+  max-width: 1140px;
+  margin: 0 auto;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo{
+  width: 200px;
+  height: auto;
+}
+.nav__list{
+  display: flex;
+}
+.nav__list li{
+  list-style-type: none;
+  font-size: 1.8rem;
+  display: inline-block;
+  height: 20px;
+  margin-left: 30px;
+  
+}
+
+
+/* --------------------------
+about
+-------------------------- */
+#about{
+  padding: 80px 0 0;
+}
+#about .textbox{
+  margin: 64px auto 80px;
+}
+.img-pc{
+  display: block;
+}
+.img-sp{
+  display: none;
+}
+#about p{
+  margin-top: 40px;
+}
+
+/* ----------------------------
+course
+---------------------------- */
+#course{
+  padding: 64px 0 0;
+}
+#course .textbox{
+  margin: 32px 0 64px;
+}
+.curriculum{
+  width: 100%;
+}
+.cur-img,.cur-text{
+  width: 50%;
+}
+.cur-img-left{
+  float: left;
+}
+.cur-img-right{
+  float: right;
+}
+.cur-text-right{
+  padding: 149px 114px 0 48px;
+  float: right;
+}
+.cur-text-left{
+  padding: 149px 48px 0 114px;
+  float: left;
+}
+.cur-text>h3{
+  font-weight: bold;
+  font-size: 2.1rem;
+}
+
+
+
+/* ------------------------------
+news
+------------------------------ */
+#news{
+  padding: 96px 0 64px;
+}
+.news-wrapper{
+  width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+.news-card{
+  width: 364px;
+  margin: 0 24px 0 0;
+}
+.news-card:last-of-type{
+  margin: 0;
+}
+.news-text{
+  padding: 24px 16px 20px;
+  text-align: left;
+}
+.news-text p{
+  margin: 16px 0 0;
+}
+.news-title{
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 0 0 24px;
+}
+.date{
+  color: #999;
+}
+.btn{
+  display: block;
+  width: 264px;
+  background-color: #FFD61A;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  padding: 22px 0;
+  margin: 40px auto 0;
+  
+}
+.btn a{
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+
+/* -------------------------------
+access
+------------------------------ */
+#access{
+  padding: 64px 0 80px;
+}
+.map{
+  width: 100%;
+}
+.access-wrapper{
+  padding-top: 64px;
+}
+.access-content{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.access-content:last-of-type{
+  margin: 0;
+}
+.access-info{
+  font-weight: bold;
+  width: 110px;
+  margin-right: 24px;
+  text-align: right;
+  font-size: 1.6rem;
+}
+.access-text{
+  width: 400px;
+  color: #707070;
+  text-align: left;
+  font-size: 1.6rem;
+}
+
+
+
+
+/* --------------------------------
+contact
+-------------------------------- */
+#contact{
+  padding: 64px 0 80px;
+}
+#contact .textbox{
+  margin: 48px 0 64px;
+}
+#contact p{
+  margin-top: 40px;
+}
+.form-wrapper{
+  width: 560px;
+  margin: 0 auto;
+}
+.form-inner{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 40px;
+}
+.form-title{
+  font-size: 1.6rem;
+  font-weight: bold;
+  width: 122px;
+  text-align: right;
+  margin: 0 25px 0 0;
+  padding-top: 16px;
+}
+.form-title.check-radio{
+  padding-top: 8px;
+}
+.form-item{
+  font-size: 1.4rem;
+  width: 388px;
+  margin: 0 0 32px;
+  padding: 4px 0 0;
+}
+.form-item:last-of-type{
+  margin-bottom: 0;
+}
+.form-parts{
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px;
+  border: solid 1px #aaa;
+  font-size: 1.6rem;
+}
+input[type*="radio"]{
+  appearance: none;
+  -webkit-appearance:none;
+  -moz-appearance: none;
+  margin: 0 16px 0 0;
+  width: 16px;
+  height: 16px;
+  border: solid 1px #eee;
+  background-color: #eee;
+  border-radius: 50%;
+  vertical-align: -2px;
+}
+input[type*="radio"]:checked{
+  appearance: none;
+  -webkit-appearance:none;
+  -moz-appearance: none;
+  background-color: #FFD61A;
+  border: none;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+.form-label{
+  display: block;
+  text-align: left;
+  margin: 0 0 24px 0;
+  font-size: 1.4rem;
+}
+.btn-submit{
+  appearance: none;
+  -webkit-appearance:none;
+  -moz-appearance: none;
+  border: none;
+  font-size: 1.6rem;
+}
+
+/* ----------------------------------
+footer
+---------------------------------- */
+.footer{
+  padding: 24px 0;
+  background-color: #707070;
+  text-align: center;  
+}
+.copyrights{
+  color: #fff;
+  font-size: 1.4rem;
+}
+
+
+
+
+
+
+
+/* --------------------------------
+レスポンシブ
+-------------------------------- */
+
+@media screen and (max-width: 640px){
+  section{
+    padding: 40px 0 0;
+  }
+  h1{
+    font-size: 1.6rem;
+    width: 142px;
+  }
+  h2{
+    margin: 0 auto 16px;
+  }
+  h3{
+    font-size: 1.6rem;
+    margin: 16px auto 40px;
+  }
+  p{
+    font-size: 1.6rem;
+  }
+  .textbox{
+    margin: 40px auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+    text-align-last: left;
+  }
+  
+  /* -------------------------------
+  header
+  ---------------------------------- */
+  .hero{
+    height: 375px;
+    background-image: url(../images/header/hero_img.jpg);
+    background-size: cover;
+    background-position:25% 0;
+    margin-top: 70px;
+  }
+  .hero-img{
+    display: none;
+  }
+  .catch{
+    font-size: 2.4rem;
+    padding: 0;
+    white-space: nowrap;
+    letter-spacing: -0.02em;
+  }
+  .title h1{
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    width: 160px;
+    font-size: 1.6rem;
+    line-height: 2;
+
+  }
+  .btn-trigger{
+    appearance: none;
+    -webkit-appearance: none;
+    display: block;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    padding: 0;
+    border:none;
+    background-color: transparent;
+    box-shadow: none;
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);      
+    z-index: 100;
+    transition: 0.4s;                                                                                                                 
+  }
+  .btn-trigger.active use:nth-of-type(1){
+    transform: translateY(30px) rotate(-45deg);
+  }
+  .btn-trigger.active use:nth-of-type(2){
+    opacity: 0;
+  }
+  .btn-trigger.active use:nth-of-type(3){
+    transform: translateX(35px) translateY(-15px) rotate(-45deg);
+  }
+  .nav-cover{
+    position: fixed;
+    top: 0;
+    background-color: #fdda3b;
+  }
+  .nav__wrapper{
+    justify-content: center;
+  }
+  .logo{
+    width: 180px;
+  }
+  nav{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(250, 205, 44, 0.8);
+  }
+  .nav__list{
+    display: block;
+    padding: 84px 0 0;
+  }
+  .nav__list li{
+    display: block;
+    margin: 0 0 60px;
+    text-align: center;
+    font-size: 2.1rem;
+  }
+  .nav__list li>a{
+    display: block;
+  }
+
+
+
+
+
+  /* -------------------------------
+  about
+  ---------------------------------- */
+
+  #about{
+    padding-top: 40px;
+  }
+  .img-pc{
+    display: none;
+  }
+  .img-sp{
+    display: block;
+  }
+  .cur-img,.cur-text{
+    width: 100%;
+  }
+  .cur-text{
+    padding: 24px 10px 40px;
+  }
+  .cur-img-left,
+  .cur-img-right,
+  .cur-text-left,
+  .cur-text-right{
+    float: none;
+  }
+  .cur-text>h3{
+    font-size: 1.6rem;
+    margin: 0 0 24px;
+  }
+/* ------------------------
+news
+------------------------ */
+  #news{
+    padding: 40px 0;
+  }
+  .news-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: none;
+    flex-wrap: wrap;
+  }
+  .news-card{
+    width: 100%;
+    margin: 0;
+  }
+  .news-text p{
+    margin: 24px 0 0;
+  }
+  .news-title{
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  .date{
+    color: #999;
+  }
+  .btn{
+    display: block;
+    width: 264px;
+    background-color: #FFD61A;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    padding: 22px 0;
+    margin: 24px auto 0;
+    
+  }
+
+/* ------------------------
+access
+------------------------ */
+  #access{
+    padding: 40px 0 36px;
+  }
+  .access-wrapper{
+    padding: 40px 10px 0;
+  }
+  .access-content{
+    display: block;
+    margin-bottom: 40px;
+  }
+  .access-content:last-of-type{
+    margin: 0;
+  }
+  .access-info{
+    width: 100%;
+    margin: 0 0 16px;
+    text-align: left;
+    font-size: 1.6rem;
+  }
+  .access-text{
+    width: 100%;
+    text-align: left;
+    font-size: 1.6rem;
+    line-height: 1.8;
+  }
+
+/* ------------------------
+form
+------------------------ */
+  #contact{
+    padding: 40px 0 80px;
+  }
+  .form-wrapper{
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    margin-top: 57px;
+  }
+  .form-inner{
+    display: block;
+  }
+  .form-title{
+    width: 100%;
+    text-align: left;
+    margin: 40px 0 0;
+    padding: 0;
+  }
+  .form-item{
+    font-size: 1.4rem;
+    width: 100%;
+    margin: 16px 0 0;
+    padding: 4px 0 0;
+    line-height: 1.8;
+  }
+  .form-parts{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px;
+    border: solid 1px #aaa;
+    font-size: 1.6rem;
+    border-radius: 0;
+  }
+
+  .btn-submit{
+    border-radius: 0;
+  }
+
+  .copyrights{
+    display: block;
+    margin: 0 auto;
+    width: 220px;
+    font-size: 1.2rem;
+    line-height: 2;
+  }
+}
