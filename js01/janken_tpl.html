@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/sample.css">
+<title>サザコイ</title>
+</head>
+<body>
+
+<!-- <header>
+</header> -->
+
+<main>
+  <div id="opening">
+    <div class="opening-wrapper">
+      <h1>サザコイ</h1>
+      <p id="start">GAME START</p>
+    </div>
+  </div>
+  <div id="win">
+    <div class="opening-wrapper">
+      <h1>GAME CLEAR</h1>
+      <p id="reset">RETRY</p>
+    </div>
+  </div>
+  <div id="lose">
+    <div class="opening-wrapper">
+      <h1>GAME OVER...</h1>
+      <p id="reset2">RETRY</p>
+    </div>
+  </div>
+  <div id="wrapper">
+    <div class="life-wrapper">
+      <div id="cp-life">
+        <p class="hp">
+          サザエのHP
+        </p>
+          <span id="cp-life1" class="life"><img src="img/heart.png" alt="ハート"></span>
+          <span id="cp-life2" class="life"><img src="img/heart.png" alt="ハート"></span>
+          <span id="cp-life3" class="life"><img src="img/heart.png" alt="ハート"></span>
+      </div>
+      <div>
+        <p class="hp">
+          あなたのメンタル
+        </p>
+          <span id="my-life1" class="life"><img src="img/heart.png" alt="ハート"></span>
+          <span id="my-life2" class="life"><img src="img/heart.png" alt="ハート"></span>
+          <span id="my-life3" class="life"><img src="img/heart.png" alt="ハート"></span>
+      </div>
+    </div>
+    <div class="sazae-wrapper">
+      <div id="sazae">
+        <img src="img/defo.jpg" alt="">
+      </div>
+      <div id="serif"><p>サザエでございまーす！</p></div>
+    </div>
+    <ul class="jyanken-wrapper">
+      <li id="gu_btn"><img src="img/gu.png"></li>
+      <ul class="btn_array">
+        <li id="cho_btn"><img src="img/choki.png"></li>
+        <li id="pa_btn"><img src="img/pa.png"></li>
+      </ul>
+    </ul>
+  </div>
+</main>
+
+<footer></footer>
+<script>
+
+
+
+
+// グーチョキパーの定義
+const gu = 1;
+const cho = 2;
+const pa = 3;
+
+// HPの定義
+let cp_life = 3;
+let my_life = 3;
+
+const mmd = 1500; //matamitekudasaine delay
+
+const jd = 1000; //jyanken delay
+const ja = 100; //jyanken animate
+
+const sd = 1000; //serif delay
+const sa = 100; //serif animate
+
+
+// ライフ減少時の表示
+function life_view(cp_life, my_life){
+if(cp_life < 3){
+  $("#cp-life3").html('<img class="broken" src="img/broken.png">');
+}
+if(cp_life < 2){
+  $("#cp-life2").html('<img class="broken" src="img/broken.png">');
+}
+if(cp_life < 1){
+  $("#cp-life1").html('<img class="broken" src="img/broken.png">');
+  $("#win").fadeIn(3000);
+}
+
+if(my_life < 3){
+  $("#my-life3").html('<img class="broken" src="img/broken.png">');
+}
+if(my_life < 2){
+  $("#my-life2").html('<img class="broken" src="img/broken.png">');
+}
+if(my_life < 1){
+  $("#my-life1").html('<img class="broken" src="img/broken.png">');
+  $("#lose").fadeIn(3000);
+}
+}
+
+// じゃんけんの描写
+function mata(){
+  $("#sazae").html('<img src="img/defo.jpg">');
+  $("#serif").html('<p>来週もまた見てくださいね～</p>');
+}
+
+function jyanken(){
+  $("#serif").html('<p>じゃんけん</p>');
+  $("#sazae").html('<img src="img/tame.png">');
+}
+function pon_gu(){
+  $("#sazae").html('<img src="img/pon_gu.png">');
+  $("#serif").append('<p>ポン！</p>');
+}
+function pon_cho(){
+  $("#sazae").html('<img src="img/pon_cho.jpg">');
+  $("#serif").append('<p>ポン！</p>');
+}
+function pon_pa(){
+  $("#sazae").html('<img src="img/pon_pa.jpg">');
+  $("#serif").append('<p>ポン！</p>');
+}
+
+// CPセリフ
+function serif(cp_life, my_life){
+  if(cp_life == 3 && my_life ==3){
+    $("#serif").html('<p class="serif">ウフフフフフ</p>');
+    $("#sazae").html('<img src="img/defo.jpg">');
+  }
+  if(cp_life == 2 && my_life ==3){
+    $("#serif").html('<p class="serif">強いのね</p>');
+    $("#sazae").html('<img src="img/dokidoki.jpg">');
+  }
+  if(cp_life == 1 && my_life ==3){
+    $("#serif").html('<p class="serif">うそ、連続で負けちゃった</p>');
+    $("#sazae").html('<img src="img/bikkuri.jpg">');
+  }
+  if(cp_life == 0 && my_life ==3){
+    $("#serif").html('<p class="serif">私と付き合ってください！</p>');
+    $("#sazae").html('<img src="img/kawaii.jpg">');
+  }
+  if(cp_life == 3 && my_life ==2){
+    $("#serif").html('<p class="serif">出直してきなさい</p>');
+    $("#sazae").html('<img src="img/defo.jpg">');
+  }
+  if(cp_life == 2 && my_life ==2){
+    $("#serif").html('<p class="serif">まだまだよ</p>');
+    $("#sazae").html('<img src="img/komaru.jpg">');
+  }
+  if(cp_life == 1 && my_life ==2){
+    $("#serif").html('<p class="serif">マスオさんがまってるわ</p>');
+    $("#sazae").html('<img src="img/tere.jpg">');
+  }
+  if(cp_life == 0 && my_life ==2){
+    $("#serif").html('<p class="serif">マスオさんごめんなさい...!</p>');
+    $("#sazae").html('<img src="img/kiss.jfif">');
+  }
+  if(cp_life == 3 && my_life ==1){
+    $("#serif").html('<p class="serif">あなたみたいな人は知りません</p>');
+    $("#sazae").html('<img src="img/defo.jpg">');
+  }
+  if(cp_life == 2 && my_life ==1){
+    $("#serif").html('<p class="serif">勝ったって何にもないわよ</p>');
+    $("#sazae").html('<img src="img/dokidoki.jpg">');
+  }
+  if(cp_life == 1 && my_life == 1){
+    $("#serif").html('<p class="serif">まだやるの．．．？</p>');
+    $("#sazae").html('<img src="img/dokidoki.jpg">');
+  }
+  if(cp_life == 0 && my_life == 1){
+    $("#serif").html('<p class="serif">気に入ったわ</p>');
+    $("#sazae").html('<img src="img/ureshii.jpg">');
+  }
+  if(my_life == 0){
+    $("#serif").html('<p class="serif">んがぐぐ！</p>');
+    $("#sazae").html('<img src="img/ngagugu.jpg">');
+  }
+  $("#serif p").css({opacity: 0}).each(function(i){
+    $(this).delay(sd * i).animate({opacity:1}, sa);
+  });
+  $("#sazae img").css({opacity: 0}).each(function(i){
+    $(this).delay(sd * i).animate({opacity:1}, 400);
+  });
+}
+
+
+// じゃんけんの処理
+$("#gu_btn").on("click", function(){
+  var cp = Math.ceil(Math.random()*3);
+  mata();
+  setTimeout(jyanken, jd);
+  if(cp == gu){
+    setTimeout(pon_gu,jd*2)
+  }
+  if(cp == cho){
+    setTimeout(pon_cho,jd*2);
+    cp_life -= 1;
+  }
+  if(cp == pa){
+    setTimeout(pon_pa,jd*2);
+    my_life -=1;
+  }
+  $("#serif p").css({opacity: 0}).each(function(i){
+    $(this).delay(jd * i).animate({opacity:1}, ja);
+  });
+  setTimeout(function(){serif(cp_life, my_life)},mmd + (jd + ja)*2);
+  setTimeout(function(){life_view(cp_life, my_life)},mmd + (jd + ja)*2 + sa + sd);
+});
+$("#cho_btn").on("click", function(){
+  var cp = Math.ceil(Math.random()*3);
+  mata();
+  setTimeout(jyanken, jd);
+  if(cp == gu){
+    setTimeout(pon_gu,jd*2)
+    my_life -=1;
+  }
+  if(cp == cho){
+    setTimeout(pon_cho,jd*2);
+  }
+  if(cp == pa){
+    setTimeout(pon_pa,jd*2);
+    cp_life -= 1;
+  }
+  $("#serif p").css({opacity: 0}).each(function(i){
+    $(this).delay(jd * i).animate({opacity:1}, ja);
+  });
+  setTimeout(function(){serif(cp_life, my_life)},mmd + (jd + ja)*2);
+  setTimeout(function(){life_view(cp_life, my_life)},mmd + (jd + ja)*2 + sa + sd);
+});
+$("#pa_btn").on("click", function(){
+  var cp = Math.ceil(Math.random()*3);
+  mata();
+  setTimeout(jyanken, jd);
+  if(cp == gu){
+    setTimeout(pon_gu,jd*2)
+    cp_life -= 1;
+  }
+  if(cp == cho){
+    setTimeout(pon_cho,jd*2);
+    my_life -=1;
+  }
+  if(cp == pa){
+    setTimeout(pon_pa,jd*2);
+  }
+  $("#serif p").css({opacity: 0}).each(function(i){
+    $(this).delay(jd * i).animate({opacity:1}, ja);
+  });
+  setTimeout(function(){serif(cp_life, my_life)},mmd + (jd + ja)*2);
+  setTimeout(function(){life_view(cp_life, my_life)},mmd + (jd + ja)*2 + sa + sd);
+});
+// オープニング
+$("#start").on("click", function(){
+  $("#opening").fadeOut(2000);
+});
+
+// エンディング
+$("#reset").on("click", function(){
+  $("#win").fadeOut(2000);
+
+  $("#opening").fadeIn(1500);
+  cp_life = 3;
+  my_life = 3;
+  console.log(my_life);
+  $("#sazae").html('<img src="img/defo.jpg">');
+  $("#cp-life3").html('<img src="img/heart.png">');
+  $("#cp-life2").html('<img src="img/heart.png">');
+  $("#cp-life1").html('<img src="img/heart.png">');
+  $("#my-life3").html('<img src="img/heart.png">');
+  $("#my-life2").html('<img src="img/heart.png">');
+  $("#my-life1").html('<img src="img/heart.png">');
+  $("#serif").html('<p class="serif">サザエでございまーす！</p>');
+});
+$("#reset2").on("click", function(){
+  $("#lose").fadeOut(2000);
+
+  $("#opening").fadeIn(1500);
+  cp_life = 3;
+  my_life = 3;
+  console.log(my_life);
+  $("#sazae").html('<img src="img/defo.jpg">');
+  $("#cp-life3").html('<img src="img/heart.png">');
+  $("#cp-life2").html('<img src="img/heart.png">');
+  $("#cp-life1").html('<img src="img/heart.png">');
+  $("#my-life3").html('<img src="img/heart.png">');
+  $("#my-life2").html('<img src="img/heart.png">');
+  $("#my-life1").html('<img src="img/heart.png">');
+  $("#serif").html('<p class="serif">サザエでございまーす！</p>');
+});
+    
+    
+    
+    
+
+</script>
+</body>
+</html>

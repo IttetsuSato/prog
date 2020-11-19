@@ -1,0 +1,180 @@
+body{
+    margin:0;
+    padding:0;
+    text-align:left;
+    font-size: 62.5%;
+}
+header{
+    padding: 10px 0;
+    background-color: rgb(167, 219, 253);
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    color: #333;
+}
+h1{
+    font-size: 4rem;
+    font-weight: normal;
+    letter-spacing: 0.2em;
+}
+main{
+    border-bottom:1px solid #ccc;
+}
+footer{
+    background-color: #fff;
+    border-bottom:1px solid #ccc;
+    text-align: center;
+}
+p{
+    display: inline-block;
+    font-size:1.8rem;
+    color: #333;
+    line-height: 1.8;
+}
+
+#opening{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(256, 256, 256, 0.95);
+    z-index: 100;
+}
+.opening-wrapper{
+    transform: translate3d(-50%, -50%,0);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+}
+#start,
+#reset,
+#reset2{
+    margin-top: 50px;
+    cursor: pointer;
+}
+#start:hover,
+#reset:hover,
+#reset2:hover{
+    transition: 0.5s;
+    border-bottom: solid 1px #333;
+}
+#win,#lose{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(256, 256, 256, 0.94);
+    z-index: 100;
+    letter-spacing: 0.02em;
+}
+#wrapper{
+    display: flex;
+    justify-content: space-evenly;
+    background-image: url(../img/wasitsu.jfif);
+    background-size: cover;
+}
+/* ------------------------------
+ライフ画面
+--------------------------- */
+.life-wrapper{
+    width: 30%;
+    padding-left: 30px;
+    box-sizing: border-box;
+}
+.hp{
+    display: block;
+    margin-top: 50px;
+}
+.life{
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+}
+.life img{
+    width: 50px;
+    height: auto;
+}
+/* ------------------------------
+サザエ画面
+--------------------------- */
+.sazae-wrapper{
+    width: 40%;
+    position: relative;
+}
+#sazae img{
+    width: 100%;
+    height: auto;
+}
+#serif{
+    padding: 30px;
+    display: block;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color:rgba(256, 256, 256, 0.8);
+    box-sizing: border-box;
+}
+/* ------------------------------
+ボタン画面
+--------------------------- */
+ul{
+    padding: 0;
+}
+.jyanken-wrapper{
+    width: 30%;
+    padding-top: 150px;
+}
+#gu_btn,
+#cho_btn,
+#pa_btn{
+    text-align: center;
+    list-style-type:none;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+}
+#gu_btn img,
+#cho_btn img,
+#pa_btn img{
+    background-color: rgba(256 ,256, 256, 0.8);
+    width: 130px;
+    height: 130px;
+    border: solid 6px #333;
+    border-radius: 50%;
+    box-shadow: 0 0 14px  #666;
+}
+#gu_btn{
+    display: block;
+}
+#gu_btn img:hover,
+#bu_btn img:active{
+    transition: 0.4s;
+    box-shadow: 0 0 8px #444;
+    background-color: pink;
+}
+#cho_btn img:hover,
+#cho_btn img:active{
+    transition: 0.4s;
+    border: solid 6px #333;
+    box-shadow: 0 0 8px #444;
+    background-color: yellow;
+}
+#pa_btn img:hover,
+#pa_btn img:active{
+    transition: 0.4s;
+    border: solid 6px #333;
+    box-shadow: 0 0 8px #444;
+    background-color: skyblue;
+}
+#cho_btn,
+#pa_btn{
+    display: inline-block;
+}
+.btn_array{
+    display: block;
+    text-align: center;
+}
