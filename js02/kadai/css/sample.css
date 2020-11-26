@@ -1,0 +1,216 @@
+body{
+    margin:0;
+    padding:0;
+    text-align:center;
+    font-size: 32px;
+    width:100%;
+}
+header{
+    background-color: #fff;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+h1{
+    font-size: 100%;
+    display: inline-block;
+    width: 300px;
+    margin: 30px;
+}
+main{
+    width:100%;
+    display: block;
+    border-bottom:1px solid #ccc;
+    position:relative;
+}
+footer{
+    background-color: #fff;
+    border-bottom:1px solid #ccc;
+    text-align: center;
+}
+p{
+    font-size:200%;
+    text-align: center;
+    border-bottom:1px solid #fff;
+    height:200px;
+}
+ul{
+    padding: 0;
+    display:table;  /* 定義 */
+    table-layout: fixed;
+    width:80%;
+    font-size: 80%;
+    margin: 20px auto;
+    text-align: center;
+}
+li{
+    list-style-type:none;
+    border: 2px solid #aaa;
+    background-color: #fff;
+    display:table-cell;  /* 定義 */
+    cursor: pointer;
+    color:#0d7dfd;
+    border-radius: 10px;
+}
+li:hover{
+    background: #0d7dfd;
+    color:#fff;
+    transition: 0.4s;
+}
+textarea{
+    margin: 0 auto;
+    width: 80%;
+    height: 160px;
+    background-color:rgba(255, 255, 255,0.95);
+    font-size: 2rem;
+}
+.memo_memo{
+    border: solid 2px #aaa;
+    border-top: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+#key{
+    background-color: #fff;
+    width: 80%;
+    height: 80px;
+    font-size: 2.4rem;
+    border: solid 2px #aaa;
+}
+.memo_key{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+table{
+    width: 80%;
+    margin: 20px auto;
+    border:1px solid #aaa;
+    
+}
+th{
+    width:30%;
+    font-size:24px;
+    background-color:#d0e7fc;
+    border-bottom: 1px solid #999;
+}
+td{
+    font-size:16px;
+    background-color:rgb(241, 239, 239);
+    border-bottom: 1px solid #999;
+}
+/* ーーーーーーーーーーーーーーーー
+上
+ーーーーーーーーーーーーーーーーーーー */
+.mode{
+    margin: 30px 50px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    background-color: #f56c11;
+    display: inline-block;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 5px 5px #333;
+}
+.mode a{
+    width: 100%;
+    color: lemonchiffon;
+    text-decoration: none;
+
+}
+/* ---------------------------
+main
+------------------------- */
+.quizh1{
+    font-family: "HGP行書体", "ＭＳ Ｐ明朝", "MS PMincho", serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px 0;
+    width: 100%;
+    font-size: 4rem;
+    margin: 0;
+}
+.quizmain{
+    background-image: url(../images/sinden.png);
+    background-size: cover;
+}
+.question{
+    margin: 70px auto 20px;
+    border-radius: 45px;
+    text-align: center;
+    font-weight: bold;
+}
+.players{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+.player{
+    width: 320px;
+    height: 320px;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+}
+.score{
+    background-color: rgba(245, 153, 199, 0.507);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 8px;
+    border-radius: 10px;
+}
+.cp_score{
+    background-color: rgba(153, 185, 245, 0.507);
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+#timer{
+    font-size: 12rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+.name{
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    background-color: #333;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    height: auto;
+    border: none;
+}
+.player.guest{
+    background-color: #e33;
+}
+.player.ore{
+    background-color: #33e;
+}
+.player img{
+    max-width: 300px;
+    max-height: 300px;
+}
+.answer{
+    box-sizing: border-box;
+    border: solid 8px #f56c11;
+    padding: 30px;
+    text-align: center;
+    margin: 0 auto 60px;
+}
+#go,#random{
+    display: none;
+}
+.seikai,.huseikai{
+    display: none;
+    position: absolute;
+    width: 300px;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+}

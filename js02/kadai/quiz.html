@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>myMemoPad</title>
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+</head>
+<body>
+  <header>
+  </header>
+  <main class="quizmain">
+    <h1 class="quizh1">佐藤一徹のクイズトレーニング</h1>
+    <img src="images/seikai.jpg" class="seikai">
+    <img src="images/huseikai.jpg" class="huseikai">
+    <input id="key" class="question" type="text">
+    <div class="players">
+      <div class="player guest">
+        <img src="images/guest.png" alt="">
+        <p class="name">あなた</p>
+        <div class="score">SCORE <span id="score">0</span></div>
+      </div>
+      <div class="scores">
+        <div class="timer"><span id="timer">0</span></div>
+      </div>
+      <div class="player ore">
+        <img src="images/ore.jpg" alt="">
+        <p class="name">いってつ</p>
+        <div class="cp_score">SCORE <span id="cp_score">0</span></div>
+      </div>
+    </div>
+    <textarea id="memo" class="answer">Enterキーでスタート</textarea>
+    <ul>
+      <li id="random">ランダム</li>
+      <li id="go">go</li>
+    </ul>
+    
+  </main>
+      <div class="mode">
+        <a href="index.html">問題作成</a>
+      </div>
+  <table id="list">
+    <!-- ここに追加データが挿入される -->
+  </table>
+  <script>
+
+
+      let score = 0;
+      let cp_score = 0;
+
+  //3.ページ読み込み：保存データ取得表示
+  for(i=0; i<localStorage.length; i++){ 
+      const key = localStorage.key(i);
+      const memo = localStorage.getItem(key);
+      const h = '<tr id="'+key+'"><td>'+key+'</td></tr>';
+      $("#list").prepend(h);
+  }
+
+// ランダムクイズ
+$("#random").on('click', function(){
+  let r = Math.floor(Math.random()*localStorage.length);
+  const key = localStorage.key(r);
+  var se_quiz = new Audio('se/question1.mp3');
+  se_quiz.play();
+  $("#key").val(key);
+  $("#memo").val("");
+
+  timer_start();
+  let cp_time = Math.ceil(Math.random()*7)+ 1;
+  setTimeout(cpu, cp_time*1000, cp_time);
+});
+
+
+//cpの解答
+function cpu(cp_time){
+    const key = $("#key").val();
+    const answer = localStorage.getItem(key);
+    if(time==cp_time){
+    var se_osoi = new Audio('se/osoi.m4a');
+    se_osoi.play();
+    $("#memo").empty().val("おそい！答えは、"+answer).css("border-color","#33e");
+    cp_score +=10;
+    $("#cp_score").html(cp_score);
+    clearInterval(timerID);
+    }
+}
+
+//タイマー
+let time;
+function timer(){
+  time++;
+  $("#timer").html(time);
+}
+function timer_start(){
+  time = 0;
+  timerID = setInterval(timer,1000);
+}
+
+// 答え合わせ
+$("#go").on("click", function(){
+  const key = $("#key").val();
+  const memo = $("#memo").val();
+  const answer = localStorage.getItem(key);
+  var se_seikai = new Audio('se/correct2.mp3');
+  var se_huseikai = new Audio('se/incorrect1.mp3');
+  if(memo == answer){
+    score += 10;
+    $("#score").html(score);
+    $("#memo").val("正解！").css("border-color","#e33");
+    se_seikai.play();
+    $(".seikai").fadeIn(200).fadeOut(1200);
+  }else{
+    $("#memo").val("不正解！正解は、"+answer).css("border-color","#33e");
+    se_huseikai.play();
+    $(".huseikai").fadeIn(200).fadeOut(1200);
+  }
+  clearInterval(timerID);
+});
+
+const enter = "Enterキーでスタート";
+$("#memo").val(enter);
+
+
+//Enterキーでサクサク
+$('html').keypress(function(e){
+  if(e.which == 13){
+    const key = $("#key").val();
+    const answer = localStorage.getItem(key);
+    const seikai = "正解！";
+    const huseikai = "不正解！正解は、"+answer;
+    const cp_seikai = "おそい！答えは、"+answer;
+    const result = $("#memo").val();
+    $("#memo").focus();
+    if(result == seikai || result == huseikai || result == enter || result == cp_seikai){
+      $("#random").trigger("click");
+    }else{
+    $('#go').trigger("click");
+    }
+    return false;
+  }
+});
+
+
+//データ取り出し
+$('tr').on("click", function(){
+    const key = $(this).attr('id');
+    const memo = localStorage.getItem(key);
+    $("#key").val(key);
+    $("#memo").val(memo);
+});
+
+
+// //delete クリックイベント
+// $("#delete").on("click", function(){
+//     const key = $("#key").val();
+//     localStorage.removeItem(key);
+//     $('#'+key).remove();
+//     $("#key").val('');
+//     $("#memo").val('');
+// });
+
+
+// //clear クリックイベント
+// $("#clear").on("click", function(){
+//     localStorage.clear();
+//     $("#list").empty();
+// });
+
+
+
+
+
+
+
+</script>
+<footer>
+</footer>
+</body>
+</html>
