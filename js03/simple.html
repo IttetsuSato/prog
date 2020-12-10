@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Chatアプリ</title>
+<script src="https://kit.fontawesome.com/f5097be879.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- コンテンツ表示画面 -->
+
+<div class="chat-wrapper">
+  <button class="btn-trigger">
+    <svg viewBox="0 0 44 44" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-labelledby="menuButtonTitle">
+        <title id="menuButtonTitle">Menu</title>
+        <symbol id="bar">
+        <rect width="28" height="2" fill="#f0f0f0"></rect>
+        </symbol>
+        <use xlink:href="#bar" x="8" y="14"></use>
+        <use xlink:href="#bar" x="8" y="24"></use>
+        <use xlink:href="#bar" x="8" y="34"></use>
+    </svg>
+</button>
+  <div class="timeline">
+    <div class="room_title">
+      <p>チャット</p>
+    </div>
+    <div id="output">
+    </div>
+    <div class="ta_wrapper">
+      <label class="fileInput">
+        <i class="fas fa-images"></i><input id="fileInput" type="file" accept="image/*" value="" name="photo">
+      </label>
+      <input type="text" id="text"> 
+      <button id="send"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+      <img id="preview" src="" alt="">
+    </div>
+  </div>
+
+  <div class="edit">
+    <div class="uimage_wrapper">
+      <img id="uimage" src="images/guest.png" alt="">
+      <label class="prof_fileInput">
+        <i class="fas fa-edit"></i><p>編集</p><input id="prof_fileInput" type="file" accept="image/*" value="" name="photo">
+      </label>
+    </div>
+    <div class="edit_box">
+      <div class="nice-wrap">
+        <input type="text" id="uname" class="nice-textbox" type="text"/>
+        <label class="nice-label" for="Username">name</label>
+      </div>
+      <div>
+        <div id="save">保存</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!--/ コンテンツ表示画面 -->
+
+
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- JQuery -->
+
+
+<!--** 以下Firebase **-->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+  https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyC4Ao7CFNZsoAvIhyBJyNtCaEkUrmAwtoM",
+    authDomain: "g-s-demo-21ca4.firebaseapp.com",
+    databaseURL: "https://g-s-demo-21ca4.firebaseio.com",
+    projectId: "g-s-demo-21ca4",
+    storageBucket: "g-s-demo-21ca4.appspot.com",
+    messagingSenderId: "919387887140",
+    appId: "1:919387887140:web:493ed43aea18fc250e6ab1"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+const ref = firebase.database().ref();//データベースの参照
+var storageRef = firebase.storage().ref();//ストレージとのリアルタイム通信
+
+
+
+
+
+//プロフィール画像インプット(storageに保存)＆プレヴュー
+let prof_file;
+$("#prof_fileInput").change(function(e){
+  prof_file = e.target.files[0];
+  var profRef = storageRef.child('prof/'+prof_file.name);
+  profRef.put(prof_file);
+  // ファイルのブラウザ上でのURLを取得する
+  var prof_blobUrl = window.URL.createObjectURL(prof_file);
+  
+  uimage = 'prof/'+prof_file.name;
+
+  // uimage要素に表示
+  $('#uimage').attr('src', prof_blobUrl);
+});
+
+//画像インプット(storageに保存)＆プレヴュー
+let file;
+let image;
+$("#fileInput").change(function(e){
+  file = e.target.files[0];
+  var imagesRef = storageRef.child('images/'+file.name);
+  imagesRef.put(file).then(function() {
+
+    });
+
+  // ファイルのブラウザ上でのURLを取得する
+  var blobUrl = window.URL.createObjectURL(file);
+  
+  image = 'images/'+file.name;
+
+  // img要素に表示
+  $('#preview').attr('src', blobUrl);
+});
+
+
+//プロフィールをローカルストレージに保存
+$("#save").on("click", function(){
+  uname = $("#uname").val();
+  profile = {
+    uimage: uimage,
+    uname: uname
+  };
+  localStorage.setItem("profile", JSON.stringify(profile));
+});
+//ページ更新時、プロフィール情報を復元
+let profile = localStorage.getItem("profile");
+if(profile == null){
+  const profile = {
+    uimage: "prof/guest.png",
+    uname: "no name"
+  }
+  localStorage.setItem("profile",JSON.stringify(profile));
+}
+profile = JSON.parse(profile);
+let uname = profile.uname;
+let uimage = profile.uimage;
+$("#uname").val(uname);
+
+
+storageRef.child(uimage).getDownloadURL().then(function(url){
+  $('#uimage').attr('src', url);
+});
+
+
+//送信イベント
+$("#send").on('click',function(){
+  var now = new Date();
+  var month = now.getMonth();
+  var date = now.getDate();
+  // var w = now.getDay();
+  // var week = ['月','火','水','木','金','土','日'];
+  var hours = now.getHours();
+  var minutes = ("0"+now.getDate()).slice(-2); 
+  const uname = $("#uname").val();
+  const text = $("#text").val();
+  const time = month + '月'+ date + '日 ' +  hours + ":" + minutes;
+  if(image == null){
+  const msg = {
+    uimage: uimage,
+    image: null,
+    uname: uname,
+    text: text,
+    time: time
+  };
+  ref.push(msg);//オブジェクト変数をリアルタイムで送る
+  }else{
+    const msg = {
+    uimage: uimage,
+    image: image,
+    uname: uname,
+    text: text,
+    time: time
+  };
+  ref.push(msg);//オブジェクト変数をリアルタイムで送る
+  }
+
+  $("#text").val("");
+  $("#preview").attr('src', '');
+  image = null;
+});
+
+//受信イベント
+ref.on("child_added",function(data){
+  const v = data.val();//オブジェクト変数を代入
+  const k = data.key;//データのユニークキー
+  storageRef.child(v.uimage).getDownloadURL().then(function(url){
+    const prof_image = '<img class="prof_img" src="'+url+'">'
+    let h = "";
+    h += '<p class="name">'+v.uname+'</p>';
+    h += '<p class="time">'+v.time+'</p>';
+    h += '<div id="'+k+'" class="remove"><i class="fa fa-trash" aria-hidden="true"></i></div>'
+    h += '<p class="text">'+v.text+'</p>';
+
+    //画像付きメッセージ
+    if(v.image != null){
+      storageRef.child(v.image).getDownloadURL().then(function(image_url){
+      h += '<img class="image_file" src="'+image_url+'">'
+    let ht = '<div class="text_box">'+h+'</div>';
+    let htm = prof_image + ht;
+    let html;
+    if(v.uname == uname){
+      html = '<div class="text_wrapper mymessage">'+htm+'</div>';
+    }else{
+      html = '<div class="text_wrapper">'+htm+'</div>';
+    }
+    $("#output").append(html).animate({
+      scrollTop: 300000
+    },500);
+      })
+    }else{
+    let ht = '<div class="text_box">'+h+'</div>';
+    let htm = prof_image + ht;
+    let html;
+    //ローカルストレージ上のユーザー名とおなじ名前のメッセージは、右寄り特殊表示
+    if(v.uname == uname){
+      html = '<div class="text_wrapper mymessage">'+htm+'</div>';
+    }else{
+      html = '<div class="text_wrapper">'+htm+'</div>';
+    }
+    $("#output").append(html).animate({
+      scrollTop: 300000
+    },500);
+    }
+  });
+});
+
+
+//削除
+$('body').on('click', '.remove', function(){
+  var k = $(this).attr('id');
+
+  ref.child(k).remove();
+
+  $('#'+k).parent().parent().remove();
+});
+
+$("#text").on("keydown",function(e){
+  console.log(e);
+  if(e.keyCode == 13){
+    $("#send").trigger("click");
+  };
+  return false;
+  }
+);
+
+//スマホ対応
+$(".btn-trigger").on('click',function(){
+  $(".btn-trigger").toggleClass("active");
+  $(".timeline").toggleClass("active");
+  $(".edit").toggleClass("active");
+
+});
+$("#save").on('click',function(){
+  $(".btn-trigger").removeClass("active");
+  $(".timeline").removeClass("active");
+  $(".edit").removeClass("active");
+
+});
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
