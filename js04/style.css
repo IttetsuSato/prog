@@ -1,0 +1,168 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+nav{
+  position: fixed;
+  top: 50px;
+  left: 30px;
+}
+/* -----------------------------------
+canvas
+--------------------------------- */
+section{
+  padding: 100px 0;
+}
+canvas{
+  background: #333;
+  display: block;
+  margin: 0 auto;
+}
+.canvas{
+  background-image: url(image/bg.jfif);
+  background-size: cover;
+  height: 100%;
+}
+/* --------------------------------
+.edit
+------------------------------- */
+.edit{
+  width: 100%;
+  height: 100%;
+  display: none;
+  background-image: url(image/jyokin.jfif);
+  background-size: auto;
+}
+.edit_box{
+  padding: 30px 0;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.uimage_wrapper{
+  margin: 50px auto 0;
+  text-align: center;
+}
+.prof_fileInput{
+  padding: 6px 10px;
+  border-radius: 100px;
+  background-color: #aaa;
+}
+.prof_fileInput i{
+  cursor: pointer;
+  color: #fff;
+}
+.prof_fileInput p{
+  margin-left: 5px;
+  cursor: pointer;
+  color: #fff;
+  display: inline-block;
+  font-size: 0.8rem;
+}
+.prof_fileInput input{
+  display: none;
+}
+#uimage{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.uimage_wrap{
+  position: absolute;
+  display: block;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.uname{
+  display: block;
+  width: 200px;
+  margin: 50px auto 80px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  background-color:none;
+  border: solid 2px #aaa;
+  color: #333;
+  outline: none;
+}
+#save{
+  width: 250px;
+  padding: 15px;
+  color: #fff;
+  background-color: rgba(56, 0, 106, 0.8);
+  text-align: center;
+  border-radius: 10px;
+
+  margin: 80px auto 0;
+}
+
+.score{
+  font-size: 50px;
+  text-align: center;
+  font-family: 'Langar', cursive;
+  opacity: 0;
+  color: #333;
+}
+
+.ranking_section{
+  display: none;
+}
+.ranking{
+  margin: 0 auto;
+  width: 400px;
+  max-height: 600px;
+  overflow: scroll;
+}
+.ranking_title{
+  margin-top : 50px;
+  text-align: center;
+  font-size: 40px;
+  color: orange;
+  font-weight: bold;
+  font-family: 'Bungee Outline', cursive;
+}
+.ranking .text_wrapper{
+  display: flex;
+  width: 350px;
+  justify-content: center;
+  margin: 30px auto;
+  box-shadow: 0 0 5px 2px #aaa;
+  padding: 10px;
+  border-radius: 10px;
+}
+.ranking .prof_img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 40px;
+
+}
+.ranking .text_box{
+
+  padding: 10px 0;
+  text-align: center;
+}
+.ranking .text,
+.ranking .name{
+  font-size: 30px;
+  font-family: 'Langar', cursive;
+  border-bottom: solid 1px #aaa;
+}
+.ranking .name{
+  font-family: Arial, Helvetica, sans-serif}
+.ok{
+  width: 250px;
+  padding: 15px;
+  color: #fff;
+  background-color: rgba(56, 0, 106, 0.8);
+  text-align: center;
+  border-radius: 10px;
+
+  margin: 80px auto 0;
+}
+.total_text{
+  opacity: 0;
+  font-size: 40px;
+  text-align: center;
+  color: #333;
+}
