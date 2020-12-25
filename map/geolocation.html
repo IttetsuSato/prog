@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Map:Geolocation</title>
+<style>html,body{height:100%;}body{padding:0;margin:0;}h1{padding:0;margin:0;font-size:50%;}</style>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://kit.fontawesome.com/f5097be879.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+
+<!-- MAP[START] -->
+<div id="myMap" style='width:100%;height:100%;'></div>
+<!-- MAP[END] -->
+
+<!-- <div class="capturemode">
+    <canvas id="myChart" width="600" height="600"></canvas>
+</div> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AkBFFyLpO32CJHY3nG-s3eBsheDTnvLvSKS5F7f_C4N6cGa1hqppj90UvLI_f04K' async defer></script>
+<script src="js/BmapQuery.js"></script>
+<script>
+//****************************************************************************************
+// BingMaps&BmapQuery
+//****************************************************************************************
+//Init
+function GetMap(){
+    //------------------------------------------------------------------------
+    //1. Instance
+    //------------------------------------------------------------------------
+    const map = new Bmap("#myMap");
+    let lat;
+    let lon;
+    let data;
+    
+    //------------------------------------------------------------------------
+    //2. geolocation: Display Map
+    //   map.geolocation(function(data:object){...});
+    //   "MapType":[load,aerial,canvasDark,canvasLight,birdseye,grayscale,streetside]
+    //------------------------------------------------------------------------
+    map.geolocation(function(data) {
+        //location
+        console.log(data);
+        lat = data.coords.latitude;
+        lon = data.coords.longitude;
+        //Map
+        map.startMap(lat, lon, "canvasDark", 17);
+        //送信データをObject変数で用意
+        //参考URL:https://api.gnavi.co.jp/api/manual/restsearch/
+        data = {
+            keyid:"5032396a9fb7903a3adacb21d14ad3b5",
+            latitude: lat,
+            longitude: lon,
+            range:3,
+            hit_per_page: 50
+        };
+        const style = {
+        pinColor:"#0000ff",
+        fillColor:"rgba(0,0,100,0.5)",
+        strokeWidth:1
+        };
+        map.circle(80, style); //1000m = 1km, 2000 = 2Km
+        map.circle(200, style); //1000m = 1km, 2000 = 2Km
+        
+        map.startTracking(true);
+        //現在地の座標の更新
+        // let timer_id;
+        // let timer = 5000; //Timer:5seconds
+        // timer_id = setInterval(function(){
+        //     const len = map.getTrackingData().length-1;  //Length:Tracking Log Data.
+        //     const val = map.getTrackingData();           //Value: Tracking Log Data.
+        //     lat = val[len].latitude;
+        //     lon = val[len].longitude;
+        //     data = {
+        //         keyid:"5032396a9fb7903a3adacb21d14ad3b5",
+        //         latitude: lat,
+        //         longitude: lon,
+        //         range:3,
+        //         hit_per_page: 50
+        //     };
+        // },timer);
+        
+        //Ajax（非同期通信）
+        axios.get('https://api.gnavi.co.jp/RestSearchAPI/v3/', {
+            params:data
+        })
+        .then(function (response) {
+            //データ受信成功！！showData関数にデータを渡す
+            showData(response.data);
+        }).catch(function (error) {
+            console.log(error);//通信Error
+        }).then(function () {
+            //console.log("Last");//通信OK/Error後に処理を必ずさせたい場合
+        });
+
+
+        //showdata関数
+        function showData(data){
+            //データ確認用
+            console.log(data.rest);
+            
+            //データを繰り返し処理で取得
+            const len  = data.rest.length; //データ数を取得
+            for( let i=0; i<len; i++){
+                const datai = data.rest[i];
+                let icon;
+                console.log(datai.category);
+
+                if(datai.category == "喫茶店")  {
+                    icon = '<i class="fas fa-baby"></i>';
+                }
+                else if(datai.category == "パスタ")  {
+                    icon = '<i class="fas fa-pastafarianism"></i>';
+                }
+                else if(datai.category == "イタリアン")  {
+                    icon = '<i class="fas fa-transgender-alt"></i>';
+                
+                }
+                else if(datai.category == "中華料理")  {
+                    icon = '<i class="fas fa-child"></i>';
+                }
+                else if(datai.category == "回転寿司")  {
+                    icon = '<i class="fab fa-suse"></i>';
+                }
+                else if(datai.category == "パスタ")  {
+                    icon = '<i class="fab fa-wolf-pack-battalion rare"></i>';
+                }
+                else if(datai.category == "コーヒー")  {
+                    icon = '<i class="fas fa-cookie"></i>';
+                }
+                else if(datai.category == "洋食屋")  {
+                    icon = '<i class="fas fa-cogs"></i>';
+                }
+                else if(datai.category == "フレンチ")  {
+                    icon = '<i class="fas fa-cog"></i>';
+                }
+                else if(datai.category == "そば")  {
+                    icon = '<i class="fab fa-twitter"></i>';
+                }
+                else if(datai.category == "ダイニングバー")  {
+                    icon = '<i class="fas fa-record-vinyl"></i>';
+                }
+                else if(datai.category == "寿司屋")  {
+                    icon = '<i class="fas fa-podcast"></i>';
+                }
+                else if(datai.category == "北海道名物ジンギスカン")  {
+                    icon = '<i class="fab fa-uncharted"></i>';
+                }
+                else if(datai.category == "海鮮料理")  {
+                    icon = '<i class="fab fa-galactic-senate rare"></i>';
+                }
+                else if(datai.category == "食堂・定食")  {
+                    icon = '<i class="fas fa-sleigh"></i>';
+                }
+                else if(datai.category == "やきとり酒場")  {
+                    icon = '<i class="fab fa-yarn"></i>';
+                }
+                else if(datai.category == "韓国料理")  {
+                    icon = '<i class="fas fa-yin-yang"></i>';
+                }
+                else if(datai.category == "ハンバーガー")  {
+                    icon = '<i class="fas fa-hamsa rare"></i>';
+                }
+                else if(datai.category == "居酒屋")  {
+                    icon = '<i class="fas fa-grip-horizontal"></i>';
+                }
+                else if(datai.category == "会席料理")  {
+                    icon = '<i class="fas fa-skating"></i>';
+                }
+                else if(datai.category == "焼き鳥と居酒屋")  {
+                    icon = '<i class="fab fa-the-red-yeti"></i>';
+                }
+                else if(datai.category == "ラーメン")  {
+                    icon = '<i class="fas fa-skull"></i>';
+                }
+                else if(datai.category == "バー")  {
+                    icon = '<i class="fas fa-jedi rare"></i>';
+                }
+                else if(datai.category == "和牛×日本酒×ワイン")  {
+                    icon = '<i class="fab fa-typo3"></i>';
+                }
+                else if(datai.category == "洋食屋")  {
+                    icon = '<i class="fab fa-python"></i>';
+                }
+                else if(datai.category == "ホルモン焼肉のお店")  {
+                    icon = '<i class="fab fa-keycdn"></i>';
+                }
+                else if(datai.category == "カレーライス")  {
+                    icon = '<i class="fab fa-earlybirds rare"></i>';
+                }
+                else if(datai.category == "本格中華料理")  {
+                    icon = '<i class="fas fa-piggy-bank"></i>';
+                }
+                else if(datai.category == "インド料理")  {
+                    icon = '<i class="fab fa-simplybuilt"></i>';
+                }
+                else if(datai.category == "和風居酒屋")  {
+                    icon = '<i class="far fa-meh-rolling-eyes"></i>';
+                }
+                else if(datai.category == "スイーツ")  {
+                    icon = '<i class="fas fa-assistive-listening-systems"></i>';
+                }
+                else if(datai.category == "スープカレー")  {
+                    icon = '<i class="fas fa-holly-berry"></i>';
+                }
+                else if(datai.category == "ダーツバー")  {
+                    icon = '<i class="fas fa-subway"></i>';
+                }
+                else if(datai.category == "ハンバーグ")  {
+                    icon = '<i class="fas fa-train"></i>';
+                }
+                else if(datai.category == "サンドイッチ・パン屋")  {
+                    icon = '<i class="fas fa-user-astronaut"></i>';
+                }
+                else if(datai.category == "焼き鳥")  {
+                    icon = '<i class="fab fa-ussunnah"></i>';
+                }
+                else if(datai.category == "飲食店")  {
+                    icon = '<i class="fas fa-mask"></i>';
+                }
+                else if(datai.category == "うどん")  {
+                    icon = '<i class="fas fa-fish"></i>';
+                }
+                else{
+                    icon = '<i class="fab fa-android"></i>';
+                }
+
+                const random = Math.random()*100;
+                if(random > 70){
+                    const tenpomei = datai.name;
+                    const ido = datai.latitude;
+                    const keido = datai.longitude;
+                    map.infoboxHtml(ido, keido, '<div  class="icon">'+icon+'</div>');
+                    $(".icon i").on("click", function(){
+                        consolo.log("ok");
+                    })
+                }
+                
+            };
+        }
+        
+        //アイコンの動き
+        setInterval(function(){
+            $(".icon i").toggleClass("change");
+        }, 1500);
+
+        
+        // //capturemodeのキャンバス
+        // var ctx = document.getElementById("myChart");
+        // $("body").on("click",function(){
+        //     console.log($(this).val());
+        // })
+        // map.onMap("click", function(){
+        //     let click_element = $(this).attr('class');
+        //         console.log(click_element);
+        //     // let x = 0;
+        //     // setInterval(capture,5);
+        // })
+        // let x = 59;
+        //     let myChart = new Chart(ctx, {
+        //         type: 'pie',
+        //     data: {
+        //         labels: ["Get", "Miss"],
+        //         datasets: [{
+        //             backgroundColor: [
+        //                 "#f00",
+        //                 "#00a"
+        //             ],
+        //             data: [x, 100-x]
+        //         }]
+        //     },
+        //     options: {
+        //         title: {
+        //         display: false,
+        //         }
+        //     }
+        //     });
+        //     x += 1;
+        //     if( x == 100){
+        //         x = 0;
+        //     }
+    });//geolocation end
+    }//Get Map end
+
+    
+    </script>
+    </body>
+    </html>
+    
